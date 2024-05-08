@@ -13,14 +13,29 @@
       </li>
     </ul>
   </div>
+  <div>
+    <h1>Blogs</h1>
+    <ul>
+      <li v-for="blog in blogs" :key="blog.title">
+        <h2>{{ blog.title }}</h2>
+        <p>{{ blog.content }}</p>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup>
 const name = "Jalina Hirushan";
 const {
   data: projects,
-  pending,
-  error,
+  pending: pendingProjects,
+  error: errorProjects,
 } = useFetch("http://localhost:5000/projects");
+
+const {
+  data: blogs,
+  pending: pendingBlogs,
+  error: errorBlogs,
+} = useFetch("http://localhost:5000/blogs");
 
 </script>
