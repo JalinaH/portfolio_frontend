@@ -22,6 +22,21 @@
       </li>
     </ul>
   </div>
+
+  <div>
+    <h1>Create a new project</h1>
+    <form @submit.prevent="CreateProject">
+      <div>
+        <label for="name">Project Name:</label>
+        <input type="text" id="name" v-model="newProject.name" required />
+      </div>
+      <div>
+        <label for="description">Description:</label>
+        <textarea id="description" v-model="newProject.description" required></textarea>
+      </div>
+      <button type="submit">Create Project</button>
+    </form>
+  </div>
 </template>
 
 <script setup>
@@ -37,5 +52,10 @@ const {
   pending: pendingBlogs,
   error: errorBlogs,
 } = useFetch("http://localhost:5000/blogs");
+
+const newProject = ref({
+  name: "",
+  description: "",
+});
 
 </script>
