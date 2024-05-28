@@ -76,6 +76,59 @@
       </ul>
     </div>
   </div>
+
+  <div>
+    <h1>Create a new blog</h1>
+    <form @submit.prevent="CreateBlog">
+      <div>
+        <label for="createTitle">Blog Title:</label>
+        <input type="text" id="createTitle" v-model="newBlog.title" required />
+      </div>
+      <div>
+        <label for="createContent">Content:</label>
+        <textarea
+          id="createContent"
+          v-model="newBlog.content"
+          required
+        ></textarea>
+      </div>
+      <button type="submit">Create Blog</button>
+    </form>
+  </div>
+
+  <div>
+    <h1>Update a blog</h1>
+    <form @submit.prevent="UpdateBlog">
+      <div>
+        <label for="updateId">Blog ID:</label>
+        <input type="text" id="updateId" v-model="updateBlogData.id" required />
+      </div>
+      <div>
+        <label for="updateTitle">Blog Title:</label>
+        <input type="text" id="updateTitle" v-model="updateBlogData.title" required />
+      </div>
+      <div>
+        <label for="updateContent">Content:</label>
+        <textarea
+          id="updateContent"
+          v-model="updateBlogData.content"
+          required
+        ></textarea>
+      </div>
+      <button type="submit">Update Blog</button>
+    </form>
+  </div>
+
+  <div>
+    <h1>Delete a blog</h1>
+    <form @submit.prevent="DeleteBlog">
+      <div>
+        <label for="deleteId">Blog ID:</label>
+        <input type="text" id="deleteId" v-model="deleteBlogData.id" required />
+      </div>
+      <button type="submit">Delete Blog</button>
+    </form>
+  </div>
 </template>
 
 <script setup>
@@ -130,7 +183,8 @@ const createProject = async () => {
       throw new Error("Failed to create project");
     }
 
-    await fetchProjects(); // Refresh the list of projects
+    const result = await response.json();
+    projects.value.push(result);
 
     newProject.value.name = "";
     newProject.value.description = "";
@@ -183,4 +237,89 @@ const deleteProject = async () => {
     console.error("Error:", error);
   }
 };
+
+const newBlog = ref({
+  title: "",
+  content: "",
+});
+
+const updateBlogData = ref({
+  id: "",
+  title: "",
+  content: "",
+});
+
+const deleteBlogData = ref({
+  id: ""
+});
+
+const CreateBlog = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/blogs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newBlog.value),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create blog");
+    }
+
+    const result = await response.json();
+    blogs.value.push(result);
+
+    newBlog.value.title = "";
+    newBlog.value.content = "";
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+const UpdateBlog = async () => {
+  try {
+    const response = await fetch(`http://localhost:5000/blogs/${updateBlogData.value.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateBlogData.value),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update blog");
+    }
+
+    await fetchBlogs(); // Refresh the list of blogs
+
+    updateBlogData.value.id = "";
+    updateBlogData.value.title = "";
+    updateBlogData.value.content = "";
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
+const DeleteBlog = async () => {
+  try {
+    const response = await fetch(`http://localhost:5000/blogs/${deleteBlogData.value.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete blog");
+    }
+
+    await fetchBlogs(); // Refresh the list of blogs
+
+    deleteBlogData.value.id = "";
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
 </script>
