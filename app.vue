@@ -2,7 +2,7 @@
   <div>
     <h1>{{ name }}</h1>
 
-    <div v-if="pending">Loading...</div>
+    <div v-if="pendingProjects || pendingBlogs">Loading...</div>
 
     <h1>Projects</h1>
 
@@ -13,6 +13,7 @@
       </li>
     </ul>
   </div>
+
   <div>
     <h1>Blogs</h1>
     <ul>
@@ -32,7 +33,12 @@
       </div>
       <div>
         <label for="description">Description:</label>
-        <textarea id="description" v-model="newProject.description" required></textarea>
+        <textarea
+          name="description"
+          id="description"
+          v-model="newProject.description"
+          required
+        ></textarea>
       </div>
       <button type="submit">Create Project</button>
     </form>
@@ -40,12 +46,9 @@
 </template>
 
 <script setup>
-const name = "Jalina Hirushan";
+import { ref } from "vue";
 
-const newProject = ref({
-  name: "",
-  description: "",
-});
+const name = "Jalina Hirushan";
 
 const {
   data: projects,
@@ -59,4 +62,33 @@ const {
   error: errorBlogs,
 } = useFetch("http://localhost:5000/blogs");
 
+const newProject = ref({
+  name: "",
+  description: "",
+});
+
+const CreateProject = async () => {
+  console.log(newProject.value);
+  try {
+    const response = await fetch("http://localhost:5000/projects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProject.value),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to create project");
+    }
+
+    const result = await response.json();
+    projects.value.push(result); // Add the new project to the list of projects
+
+    newProject.value.name = "";
+    newProject.value.description = "";
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
 </script>
