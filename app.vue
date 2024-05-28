@@ -253,6 +253,12 @@ const deleteBlogData = ref({
   id: ""
 });
 
+const fetchBlogs = async () => {
+  // Re-fetch the blogs
+  const response = await fetch("http://localhost:5000/blogs");
+  blogs.value = await response.json();
+};
+
 const CreateBlog = async () => {
   try {
     const response = await fetch("http://localhost:5000/blogs", {
