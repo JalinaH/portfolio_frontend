@@ -18,7 +18,12 @@
       <form @submit.prevent="createProject">
         <div>
           <label for="createName">Project Name:</label>
-          <input type="text" id="createName" v-model="newProject.name" required />
+          <input
+            type="text"
+            id="createName"
+            v-model="newProject.name"
+            required
+          />
         </div>
         <div>
           <label for="createDescription">Description:</label>
@@ -37,11 +42,21 @@
       <form @submit.prevent="updateProject">
         <div>
           <label for="updateId">Project ID:</label>
-          <input type="text" id="updateId" v-model="updateProjectData.id" required />
+          <input
+            type="text"
+            id="updateId"
+            v-model="updateProjectData.id"
+            required
+          />
         </div>
         <div>
           <label for="updateName">Project Name:</label>
-          <input type="text" id="updateName" v-model="updateProjectData.name" required />
+          <input
+            type="text"
+            id="updateName"
+            v-model="updateProjectData.name"
+            required
+          />
         </div>
         <div>
           <label for="updateDescription">Description:</label>
@@ -60,7 +75,12 @@
       <form @submit.prevent="deleteProject">
         <div>
           <label for="deleteId">Project ID:</label>
-          <input type="text" id="deleteId" v-model="deleteProjectData.id" required />
+          <input
+            type="text"
+            id="deleteId"
+            v-model="deleteProjectData.id"
+            required
+          />
         </div>
         <button type="submit">Delete Project</button>
       </form>
@@ -105,7 +125,12 @@
       </div>
       <div>
         <label for="updateTitle">Blog Title:</label>
-        <input type="text" id="updateTitle" v-model="updateBlogData.title" required />
+        <input
+          type="text"
+          id="updateTitle"
+          v-model="updateBlogData.title"
+          required
+        />
       </div>
       <div>
         <label for="updateContent">Content:</label>
@@ -160,7 +185,7 @@ const updateProjectData = ref({
 });
 
 const deleteProjectData = ref({
-  id: ""
+  id: "",
 });
 
 const fetchProjects = async () => {
@@ -195,13 +220,16 @@ const createProject = async () => {
 
 const updateProject = async () => {
   try {
-    const response = await fetch(`http://localhost:5000/projects/${updateProjectData.value.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updateProjectData.value),
-    });
+    const response = await fetch(
+      `http://localhost:5000/projects/${updateProjectData.value.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateProjectData.value),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to update project");
@@ -219,12 +247,15 @@ const updateProject = async () => {
 
 const deleteProject = async () => {
   try {
-    const response = await fetch(`http://localhost:5000/projects/${deleteProjectData.value.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `http://localhost:5000/projects/${deleteProjectData.value.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
+    );
 
     if (!response.ok) {
       throw new Error("Failed to delete project");
@@ -250,7 +281,7 @@ const updateBlogData = ref({
 });
 
 const deleteBlogData = ref({
-  id: ""
+  id: "",
 });
 
 const fetchBlogs = async () => {
@@ -285,13 +316,16 @@ const CreateBlog = async () => {
 
 const UpdateBlog = async () => {
   try {
-    const response = await fetch(`http://localhost:5000/blogs/${updateBlogData.value.id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updateBlogData.value),
-    });
+    const response = await fetch(
+      `http://localhost:5000/blogs/${updateBlogData.value.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateBlogData.value),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to update blog");
@@ -309,12 +343,15 @@ const UpdateBlog = async () => {
 
 const DeleteBlog = async () => {
   try {
-    const response = await fetch(`http://localhost:5000/blogs/${deleteBlogData.value.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      `http://localhost:5000/blogs/${deleteBlogData.value.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-    });
+    );
 
     if (!response.ok) {
       throw new Error("Failed to delete blog");
@@ -327,5 +364,4 @@ const DeleteBlog = async () => {
     console.error("Error:", error);
   }
 };
-
 </script>
