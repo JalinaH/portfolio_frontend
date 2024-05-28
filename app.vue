@@ -41,6 +41,12 @@
 
 <script setup>
 const name = "Jalina Hirushan";
+
+const newProject = ref({
+  name: "",
+  description: "",
+});
+
 const {
   data: projects,
   pending: pendingProjects,
@@ -52,10 +58,5 @@ const {
   pending: pendingBlogs,
   error: errorBlogs,
 } = useFetch("http://localhost:5000/blogs");
-
-const newProject = ref({
-  name: "",
-  description: "",
-});
 
 </script>
