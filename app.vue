@@ -467,8 +467,6 @@ ul {
 }
 
 li {
-  border: 1px solid #ccc;
-  border-radius: 5px;
   margin-bottom: 10px;
   padding: 10px;
 }
