@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ name }}</h1>
+    <h1>Hello I'm {{ name }}</h1>
 
     <div v-if="pendingProjects || pendingBlogs">Loading...</div>
 
