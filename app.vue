@@ -41,13 +41,17 @@
       <h1>Update a project</h1>
       <form @submit.prevent="updateProject">
         <div>
-          <label for="updateId">Project ID:</label>
-          <input
-            type="text"
-            id="updateId"
-            v-model="updateProjectData.id"
-            required
-          />
+          <label for="updateId">Select the project name to update:</label>
+          <select id="updateId" v-model="updateProjectData.id" required>
+            <option value="" disabled>Select a project</option>
+            <option
+              v-for="project in projects"
+              :key="project._id"
+              :value="project._id"
+            >
+              {{ project.name }}
+            </option>
+          </select>
         </div>
         <div>
           <label for="updateName">Project Name:</label>
@@ -74,13 +78,17 @@
       <h1>Delete a project</h1>
       <form @submit.prevent="deleteProject">
         <div>
-          <label for="deleteId">Project ID:</label>
-          <input
-            type="text"
-            id="deleteId"
-            v-model="deleteProjectData.id"
-            required
-          />
+          <label for="updateId">Select the project name to delete:</label>
+          <select id="updateId" v-model="deleteProjectData.id" required>
+            <option value="" disabled>Select a project</option>
+            <option
+              v-for="project in projects"
+              :key="project._id"
+              :value="project._id"
+            >
+              {{ project.name }}
+            </option>
+          </select>
         </div>
         <button type="submit">Delete Project</button>
       </form>
@@ -120,8 +128,13 @@
     <h1>Update a blog</h1>
     <form @submit.prevent="UpdateBlog">
       <div>
-        <label for="updateId">Blog ID:</label>
-        <input type="text" id="updateId" v-model="updateBlogData.id" required />
+        <label for="updateId">Select the blog name to update:</label>
+        <select id="updateId" v-model="updateBlogData.id" required>
+          <option value="" disabled>Select a blog</option>
+          <option v-for="blog in blogs" :key="blog._id" :value="blog._id">
+            {{ blog.title }}
+          </option>
+        </select>
       </div>
       <div>
         <label for="updateTitle">Blog Title:</label>
@@ -148,8 +161,13 @@
     <h1>Delete a blog</h1>
     <form @submit.prevent="DeleteBlog">
       <div>
-        <label for="deleteId">Blog ID:</label>
-        <input type="text" id="deleteId" v-model="deleteBlogData.id" required />
+        <label for="updateId">Select the blog name to delete:</label>
+        <select id="updateId" v-model="deleteBlogData.id" required>
+          <option value="" disabled>Select a blog</option>
+          <option v-for="blog in blogs" :key="blog._id" :value="blog._id">
+            {{ blog.title }}
+          </option>
+        </select>
       </div>
       <button type="submit">Delete Blog</button>
     </form>
