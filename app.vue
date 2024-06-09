@@ -4,7 +4,7 @@
   <div class="root-section">
     <div v-if="pendingProjects || pendingBlogs">Loading...</div>
 
-    <div class="section project-section">
+    <div class="section">
       <h1 class="section-title">Projects</h1>
 
       <ul>
@@ -96,7 +96,7 @@
       </div>
     </div>
 
-    <div class="section blog-section">
+    <div class="section">
       <h1 class="section-title">Blogs</h1>
       <ul>
         <li v-for="blog in blogs" :key="blog.id">
@@ -406,6 +406,9 @@ const DeleteBlog = async () => {
 
 .section {
   width: 48%;
+  border: 1px solid #3ccbff;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .title {
@@ -442,7 +445,7 @@ select {
   font-size: 16px;
   margin-bottom: 10px;
   padding: 10px;
-  width: 100%;
+  width: 80%;
 }
 
 button {
