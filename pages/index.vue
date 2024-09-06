@@ -1,4 +1,5 @@
 <template>
+  <Navbar />
   <h1 class="title">Hello I'm {{ name }}</h1>
 
   <div class="root-section">
@@ -183,6 +184,10 @@
 
 <script setup>
 import { ref } from "vue";
+
+import Navbar from "~/components/Navbar.vue";
+
+
 
 const name = "Jalina Hirushan";
 
